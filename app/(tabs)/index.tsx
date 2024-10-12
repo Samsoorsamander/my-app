@@ -2,6 +2,7 @@ import React from "react";
 import { Text } from "react-native";
 
 const first = () => {
-return <Text>My first Commponent in React Native</Text>
+  const name="Samsoor";
+return <Text>Hello, {name} </Text>
 }
 export default first;

@@ -1,31 +1,25 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
-const PercentageDimensionsBasics = () => {
+const Flex = () => {
   return (
-    <View style={{height: '100%'}}>
-      <View
-        style={{
-          height: '15%',
-          backgroundColor: 'powderblue',
-        }}
-      />
-      <View
-        style={{
-          width: '66%',
-          height: '35%',
-          backgroundColor: 'skyblue',
-        }}
-      />
-      <View
-        style={{
-          width: '33%',
-          height: '50%',
-          backgroundColor: 'steelblue',
-        }}
-      />
+    <View
+      style={[
+        styles.container
+      ]}>
+      <View style={{flex: 1, backgroundColor: 'red'}} />
+      <View style={{flex: 2, backgroundColor: 'darkorange'}} />
+      <View style={{flex: 3, backgroundColor: 'green'}} />
     </View>
   );
 };
 
-export default PercentageDimensionsBasics;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    flexDirection: 'column',
+  },
+});
+
+export default Flex;

@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import type {PropsWithChildren} from 'react';
 
-const FlexDirectionBasics = () => {
-  const [flexDirection, setflexDirection] = useState('column');
+const DirectionLayout = () => {
+  const [direction, setDirection] = useState('ltr');
 
   return (
     <PreviewLayout
-      label="flexDirection"
-      values={['column', 'row', 'row-reverse', 'column-reverse']}
-      selectedValue={flexDirection}
-      setSelectedValue={setflexDirection}>
+      label="direction"
+      selectedValue={direction}
+      values={['ltr', 'rtl']}
+      setSelectedValue={setDirection}>
       <View style={[styles.box, {backgroundColor: 'powderblue'}]} />
       <View style={[styles.box, {backgroundColor: 'skyblue'}]} />
       <View style={[styles.box, {backgroundColor: 'steelblue'}]} />
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     flexWrap: 'wrap',
   },
   button: {
@@ -98,4 +98,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FlexDirectionBasics;
+export default DirectionLayout;

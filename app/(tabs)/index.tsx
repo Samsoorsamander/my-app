@@ -1,37 +1,39 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import type {PropsWithChildren} from 'react';
+import type {FlexAlignType} from 'react-native';
 
-const AlignItemsLayout = () => {
-  const [alignItems, setAlignItems] = useState('stretch');
+const AlignSelfLayout = () => {
+  const [alignSelf, setAlignSelf] = useState<FlexAlignType>('stretch');
 
   return (
     <PreviewLayout
-      label="alignItems"
-      selectedValue={alignItems}
+      label="alignSelf"
+      selectedValue={alignSelf}
       values={['stretch', 'flex-start', 'flex-end', 'center', 'baseline']}
-      setSelectedValue={setAlignItems}>
-      <View style={[styles.box, {backgroundColor: 'powderblue'}]} />
-      <View style={[styles.box, {backgroundColor: 'skyblue'}]} />
+      setSelectedValue={setAlignSelf}>
       <View
         style={[
           styles.box,
           {
-            backgroundColor: 'steelblue',
+            alignSelf,
             width: 'auto',
             minWidth: 50,
+            backgroundColor: 'powderblue',
           },
         ]}
       />
+      <View style={[styles.box, {backgroundColor: 'skyblue'}]} />
+      <View style={[styles.box, {backgroundColor: 'steelblue'}]} />
     </PreviewLayout>
   );
 };
 
 type PreviewLayoutProps = PropsWithChildren<{
   label: string;
-  values: string[];
+  values: FlexAlignType[];
   selectedValue: string;
-  setSelectedValue: (value: string) => void;
+  setSelectedValue: (value: FlexAlignType) => void;
 }>;
 
 const PreviewLayout = ({
@@ -59,7 +61,7 @@ const PreviewLayout = ({
         </TouchableOpacity>
       ))}
     </View>
-    <View style={[styles.container, {[label]: selectedValue}]}>{children}</View>
+    <View style={styles.container}>{children}</View>
   </View>
 );
 
@@ -108,4 +110,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AlignItemsLayout;
+export default AlignSelfLayout;

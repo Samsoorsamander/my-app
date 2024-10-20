@@ -1,51 +1,26 @@
-import React, {useRef, useEffect} from 'react';
-import {Animated, Text, View} from 'react-native';
-import type {PropsWithChildren} from 'react';
-import type {ViewStyle} from 'react-native';
+import React from 'react';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
-type FadeInViewProps = PropsWithChildren<{style: ViewStyle}>;
+const App = () => (
+  <View style={[styles.container, styles.horizontal]}>
+    <ActivityIndicator />
+    <ActivityIndicator size="large" />
+    <ActivityIndicator size="small" color="#0000ff" />
+    <ActivityIndicator size="large" color="#00ff00" />
+    <ActivityIndicator size="large" color="black"/>
+  </View>
+);
 
-const FadeInView: React.FC<FadeInViewProps> = props => {
-  const fadeAnim = useRef(new Animated.Value(0)).current; // Initial value for opacity: 0
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
+  },
+});
 
-  useEffect(() => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 10000,
-      useNativeDriver: true,
-    }).start();
-  }, [fadeAnim]);
-
-  return (
-    <Animated.View // Special animatable View
-      style={{
-        ...props.style,
-        opacity: fadeAnim, // Bind opacity to animated value
-      }}>
-      {props.children}
-    </Animated.View>
-  );
-};
-
-// You can then use your `FadeInView` in place of a `View` in your components:
-export default () => {
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <FadeInView
-        style={{
-          width: 250,
-          height: 50,
-          backgroundColor: 'powderblue',
-        }}>
-        <Text style={{fontSize: 28, textAlign: 'center', margin: 10}}>
-          Fading in
-        </Text>
-      </FadeInView>
-    </View>
-  );
-};
+export default App;

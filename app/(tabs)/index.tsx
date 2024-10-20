@@ -60,6 +60,10 @@ const App = () => (
           title="Right button"
           onPress={() => Alert.alert('Right button pressed')}
         />
+        <Button 
+        title='Optional'
+        onPress={() => Alert.alert('This is optonal button')}
+        />
       </View>
     </View>
   </SafeAreaView>

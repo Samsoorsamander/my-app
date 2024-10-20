@@ -1,92 +1,87 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
-  StyleSheet,
-  Button,
-  View,
+  FlatList,
   SafeAreaView,
+  StatusBar,
+  StyleSheet,
   Text,
-  Alert,
+  TouchableOpacity,
 } from 'react-native';
 
-const Separator = () => <View style={styles.separator} />;
+type ItemData = {
+  id: string;
+  title: string;
+};
 
-const App = () => (
-  <SafeAreaView style={styles.container}>
-    <View>
-      <Text style={styles.title}>
-        The title and onPress handler are required. It is recommended to set
-        accessibilityLabel to help make your app usable by everyone.
-      </Text>
-      <Button
-        title="Press me"
-        onPress={() => Alert.alert('Simple Button pressed')}
-      />
-    </View>
-    <Separator />
-    <View>
-      <Text style={styles.title}>
-        Adjust the color in a way that looks standard on each platform. On iOS,
-        the color prop controls the color of the text. On Android, the color
-        adjusts the background color of the button.
-      </Text>
-      <Button
-        title="Press me"
-        color="#f194ff"
-        onPress={() => Alert.alert('Button with adjusted color pressed')}
-      />
-    </View>
-    <Separator />
-    <View>
-      <Text style={styles.title}>
-        All interaction for the component are disabled.
-      </Text>
-      <Button
-        title="Press me"
-        disabled
-        onPress={() => Alert.alert('Cannot press this one')}
-      />
-    </View>
-    <Separator />
-    <View>
-      <Text style={styles.title}>
-        This layout strategy lets the title define the width of the button.
-      </Text>
-      <View style={styles.fixToText}>
-        <Button
-          title="Left button"
-          onPress={() => Alert.alert('Left button pressed')}
-        />
-        <Button
-          title="Right button"
-          onPress={() => Alert.alert('Right button pressed')}
-        />
-        <Button 
-        title='Optional'
-        onPress={() => Alert.alert('This is optonal button')}
-        />
-      </View>
-    </View>
-  </SafeAreaView>
+const DATA: ItemData[] = [
+  {
+    id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
+    title: 'First Item',
+  },
+  {
+    id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
+    title: 'Second Item',
+  },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d72',
+    title: 'Third Item',
+  },
+];
+
+type ItemProps = {
+  item: ItemData;
+  onPress: () => void;
+  backgroundColor: string;
+  textColor: string;
+};
+
+const Item = ({item, onPress, backgroundColor, textColor}: ItemProps) => (
+  <TouchableOpacity onPress={onPress} style={[styles.item, {backgroundColor}]}>
+    <Text style={[styles.title, {color: textColor}]}>{item.title}</Text>
+  </TouchableOpacity>
 );
+
+const App = () => {
+  const [selectedId, setSelectedId] = useState<string>();
+
+  const renderItem = ({item}: {item: ItemData}) => {
+    const backgroundColor = item.id === selectedId ? '#6e3b6e' : '#f9c2ff';
+    const color = item.id === selectedId ? 'white' : 'black';
+
+    return (
+      <Item
+        item={item}
+        onPress={() => setSelectedId(item.id)}
+        backgroundColor={backgroundColor}
+        textColor={color}
+      />
+    );
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={DATA}
+        renderItem={renderItem}
+        keyExtractor={item => item.id}
+        extraData={selectedId}
+      />
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: StatusBar.currentHeight || 0,
+  },
+  item: {
+    padding: 20,
+    marginVertical: 8,
     marginHorizontal: 16,
   },
   title: {
-    textAlign: 'center',
-    marginVertical: 8,
-  },
-  fixToText: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  separator: {
-    marginVertical: 8,
-    borderBottomColor: '#737373',
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    fontSize: 32,
   },
 });
 

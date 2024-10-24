@@ -1,65 +1,49 @@
-import React from 'react';
-import {
-  NativeModules,
-  LayoutAnimation,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  View,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {ActivityIndicator, FlatList, Text, View} from 'react-native';
 
-const {UIManager} = NativeModules;
+type Movie = {
+  id: string;
+  title: string;
+  releaseYear: string;
+};
 
-UIManager.setLayoutAnimationEnabledExperimental &&
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+const App = () => {
+  const [isLoading, setLoading] = useState(true);
+  const [data, setData] = useState<Movie[]>([]);
 
-export default class App extends React.Component {
-  state = {
-    w: 100,
-    h: 100,
+  const getMovies = async () => {
+    try {
+      const response = await fetch('https://reactnative.dev/movies.json');
+      const json = await response.json();
+      setData(json.movies);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  _onPress = () => {
-    // Animate the update
-    LayoutAnimation.spring();
-    this.setState({w: this.state.w + 15, h: this.state.h + 15});
-  };
+  useEffect(() => {
+    getMovies();
+  }, []);
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <View
-          style={[styles.box, {width: this.state.w, height: this.state.h}]}
+  return (
+    <View style={{flex: 1, padding: 24}}>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          data={data}
+          keyExtractor={({id}) => id}
+          renderItem={({item}) => (
+            <Text>
+              {item.title}, {item.releaseYear}
+            </Text>
+          )}
         />
-        <TouchableOpacity onPress={this._onPress}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>Press me!</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    );
-  }
-}
+      )}
+    </View>
+  );
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    width: 200,
-    height: 200,
-    backgroundColor: 'red',
-  },
-  button: {
-    backgroundColor: 'black',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
-    marginTop: 15,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-  },
-});
+export default App;

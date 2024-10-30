@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {View} from 'react-native'
 import LittleLemonHeader from '../../components/LittleLemonHeader';
+import MenuItems from '@/components/MenuItems';
 
 
 export default function App() {
@@ -12,7 +13,7 @@ export default function App() {
         }}
         >
             <LittleLemonHeader />
-
+            <MenuItems />            
         </View>
     )
 }

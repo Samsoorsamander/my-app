@@ -15,8 +15,15 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Stack.Navigator initialRouteName="Welcome">
-      <Stack.Screen name="Welcome2" component={Welcome2} />
+    <Stack.Navigator
+      initialRouteName="Welcome2"
+      screenOptions={{ headerStyle: { backgroundColor: "#FBDABB" } }}
+    >
+      <Stack.Screen
+        options={{ title: "Home" }}
+        name="Welcome2"
+        component={Welcome2}
+      />
       <Stack.Screen name="Registration" component={RegistrationForm} />
     </Stack.Navigator>
   );

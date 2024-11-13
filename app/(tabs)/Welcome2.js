@@ -5,9 +5,10 @@ import {
     Image,
     ScrollView,
     useColorScheme,
-    useWindowDimensions
+    useWindowDimensions,
+    Pressable
  } from "react-native";
-export default function Welcome2() {
+export default function Welcome2({navigation}) {
     const window =useWindowDimensions();
     const colorSheme = useColorScheme();
 
@@ -29,7 +30,9 @@ export default function Welcome2() {
             <Text style={Styles.title}>width: {window.width} </Text>
             <Text style={Styles.title}>fontScale:{window.fontScale} </Text>
 
-
+            <Pressable onPress={()=> navigation.goBack('Registration') }>
+                <Text style={Styles.buttonText}>Go Back</Text>
+            </Pressable>
           
             
         </ScrollView>
@@ -65,5 +68,10 @@ const Styles = StyleSheet.create({
         flex:1,
         justifyContent:'center'
     },
+    buttonText: {
+        color: "black",
+        textAlign:'center'
+        
+      }
    
     })

@@ -1,8 +1,8 @@
 
 import React, { useState } from 'react';
-import { Text, TextInput, Button, StyleSheet,ImageBackground } from 'react-native';
+import { Text, TextInput, Pressable, StyleSheet,ImageBackground } from 'react-native';
 
-const RegistrationForm = () => {
+const RegistrationForm = ({navigation}) => {
   const [name, setName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -112,7 +112,9 @@ const RegistrationForm = () => {
       />
       {errors.password && <Text style={styles.error}>{errors.password}</Text>}
 
-      <Button title="Submit" onPress={handleSubmit}  />
+      <Pressable onPress={() => navigation.navigate('Welcome2')}>
+        <Text style={styles.buttonText}>Login</Text>
+      </Pressable>
     </ImageBackground
     >
   );
@@ -147,6 +149,10 @@ const styles =
     color: 'red',
     marginBottom: 10,
   },
+  buttonText: {
+    color: "white",
+    
+  }
   
 });
 

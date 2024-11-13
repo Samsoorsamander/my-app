@@ -64,5 +64,6 @@ const Styles = StyleSheet.create({
     backImg:{
         flex:1,
         justifyContent:'center'
-    }
+    },
+   
     })

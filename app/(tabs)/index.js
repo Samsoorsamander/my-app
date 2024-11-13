@@ -16,7 +16,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <Stack.Navigator
-      initialRouteName="Welcome2"
+      initialRouteName="Registration"
       screenOptions={{ headerStyle: { backgroundColor: "#FBDABB" } }}
     >
       <Stack.Screen
@@ -38,4 +38,5 @@ const Styles = StyleSheet.create({
     flex: 0.1,
     backgroundColor: "#333333",
   },
+ 
 });

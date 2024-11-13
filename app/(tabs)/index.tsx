@@ -1,7 +1,8 @@
 import * as React from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
+import RegistrationForm from "./RegistrationForm";
+import Welcome2 from "./Welcome2";
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
@@ -14,8 +15,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
+    <Stack.Navigator initialRouteName="Welcome">
+      <Stack.Screen name="Welcome2" component={Welcome2} />
+      <Stack.Screen name="Registration" component={RegistrationForm} />
     </Stack.Navigator>
   );
 }
